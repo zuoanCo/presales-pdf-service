@@ -1,0 +1,6 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-pptx>=1.0
+python-multipart>=0.0.9
+# 仅 Windows + Office 环境需要（PowerPoint COM 后端）：
+# pywin32>=306; sys_platform == "win32"

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>27 · 核心诊断</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #0b0b0b; }
+  body { display: flex; align-items: center; justify-content: center; overflow: hidden;
+         font-family: "Microsoft YaHei", "微软雅黑", sans-serif; }
+  .stage { position: relative; width: 1280px; height: 720px; flex: none; overflow: hidden; }
+  .stage > * { position: absolute; }
+  .bg { left: 0; top: 0; width: 100%; height: 100%; object-fit: fill; }
+
+  .title-bar { left: 44.7px; top: 31.7px; width: 6.7px; height: 77.8px; background: #FFFF00; }
+  .page-title { left: 53.8px; top: 22px; width: 96px; height: 100px; padding-left: 10px;
+                font-size: 37.3px; line-height: 1.3; color: #FFFFFF; }
+
+  table.diagnosis { left: 43.2px; top: 139.2px; border-collapse: collapse; table-layout: fixed;
+                    font-size: 14.7px; color: #1F3864; text-align: center; }
+  .diagnosis col.c1 { width: 110.4px; } .diagnosis col.c2 { width: 105.6px; }
+  .diagnosis col.c3 { width: 129.6px; } .diagnosis col.c4 { width: 105.6px; }
+  .diagnosis col.c5 { width: 139.2px; }
+  .diagnosis th { height: 59.5px; background: #1F4E79; color: #FFFFFF;
+                  font-size: 16px; font-weight: 700; border: 1px solid #8EAADB; padding: 4px; }
+  .diagnosis td { height: 120px; background: #FFFFFF; border: 1px solid #8EAADB;
+                  padding: 4px 1px; font-size: 12.2px; line-height: 1.45; }
+  .diagnosis tr.hl td { background: #FFFF00; font-weight: 700; }
+
+  .key-text { left: 657.6px; top: 169px; width: 576px; height: 367.7px;
+              font-size: 37.3px; font-weight: 700; line-height: 1.25; color: #FFFFFF; }
+  .key-text em { color: #FFFF00; font-style: normal; }
+
+  .footnote { left: 124.8px; top: 582.7px; width: 1027.2px; text-align: center;
+              font-size: 14.7px; color: #FFFFFF; }
+  .lkk-logo { left: 570.2px; top: 666.2px; width: 140.2px; height: 23px; }
+  .export-btn { position: fixed; right: 24px; bottom: 24px; z-index: 10; padding: 10px 22px;
+                font-size: 15px; font-family: inherit; color: #FFFFFF; background: #1F4E79;
+                border: none; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.35); }
+  .export-btn:hover { background: #2A63A0; }
+
+  .stage { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    html, body { width: 1280px; height: 720px; background: #FFFFFF; overflow: visible; }
+    body { display: block; }
+    .stage { transform: none !important; }
+    .export-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+<!-- ============ 可修改的页面参数（用 <em> 包裹的文字显示为黄色） ============ -->
+<script>
+const PARAMS = {
+  // 当前选定的战法行（黄色高亮行，5 列：战法 / 市场阶段 / 用户心智状态 / 企业资源要求 / 核心战略目标，\n 表示换行）
+  activeRow: ['参数内容（战法）', '参数内容（市场阶段）', '参数内容（用户心智状态）', '参数内容（企业资源要求）', '参数内容（核心战略目标）'],
+  // 右侧核心结论，每行一条（<em> 包裹的部分显示为黄色）
+  keyLines: [
+    '参数内容（结论文案一<em>高亮</em>）',
+    '参数内容（结论文案二）',
+    '<em>参数内容（结论文案三）</em>',
+    '参数内容（<em>结论文案四</em>）',
+    '参数内容（结论文案五）'
+  ]
+};
+</script>
+<!-- ================================================================== -->
+
+<div class="stage" id="stage">
+  <img class="bg" src="assets/bg-blue.jpg" alt="">
+
+  <div class="title-bar"></div>
+  <div class="page-title">核心<br>诊断</div>
+
+  <table class="diagnosis">
+    <col class="c1"><col class="c2"><col class="c3"><col class="c4"><col class="c5">
+    <tr>
+      <th>战法</th><th>市场阶段</th><th>用户心智状态</th><th>企业资源要求</th><th>核心战略目标</th>
+    </tr>
+    <tr>
+      <td>开创新品类</td>
+      <td>市场空白期</td>
+      <td>无相关认知<br>需市场教育</td>
+      <td>极高<br>（资金/技术/教育）</td>
+      <td>创造全新心智赛道<br>成为品类代名词</td>
+    </tr>
+    <tr class="hl" id="activeRow">
+      <td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td>分化新品类</td>
+      <td>市场成熟期</td>
+      <td>心智固化<br>竞争白热化</td>
+      <td>中等<br>（差异化产品力）</td>
+      <td>切割细分心智<br>成为细分品类第一</td>
+    </tr>
+  </table>
+
+  <div class="key-text" id="keyText"></div>
+
+  <div class="footnote">当前判断基于售前沟通及行业初步扫描，属于方向性诊断；市场规模、付费意愿、传播边界及用户接受度仍需在正式项目中进一步验证。</div>
+  <img class="lkk-logo" src="assets/lkk-logo.png" alt="LKK 洛可可">
+</div>
+<script>
+  // 参数注入
+  var cells = document.querySelectorAll('#activeRow td');
+  PARAMS.activeRow.forEach(function (v, i) { cells[i].innerHTML = v.replace(/\n/g, '<br>'); });
+  document.getElementById('keyText').innerHTML = PARAMS.keyLines.join('<br>');
+
+  function fit() {
+    var s = Math.min(innerWidth / 1280, innerHeight / 720);
+    document.getElementById('stage').style.transform = 'scale(' + s + ')';
+  }
+  addEventListener('resize', fit); fit();
+
+  var btn = document.createElement('button');
+  btn.className = 'export-btn';
+  btn.textContent = '导出 PDF';
+  btn.onclick = function () { window.print(); };
+  document.body.appendChild(btn);
+</script>
+</body>
+</html>

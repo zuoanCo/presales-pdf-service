@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>28 · 三品合一建议 · 行业趋势 · 用户原点</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #0b0b0b; }
+  body { display: flex; align-items: center; justify-content: center; overflow: hidden;
+         font-family: "Microsoft YaHei", "微软雅黑", sans-serif; }
+  .stage { position: relative; width: 1280px; height: 720px; flex: none; overflow: hidden; }
+  .stage > * { position: absolute; }
+  .bg { left: 0; top: 0; width: 100%; height: 100%; object-fit: fill; }
+
+  .page-title { left: 96px; top: 28.8px; width: 1084.8px; text-align: center;
+                font-size: 37.3px; font-weight: 700; color: #FFFFFF; }
+  .sec-title { left: 115.2px; width: 480px; font-size: 26.7px; font-weight: 700; color: #FFFFFF; }
+  .sec1-title { top: 124.8px; }
+  .sec2-title { top: 316.8px; }
+
+  .sec1-body { left: 115.2px; top: 177.6px; width: 1046.4px; height: 129.6px;
+               font-size: 20px; line-height: 1.55; color: #FFFFFF; }
+
+  .sec2-body { left: 115.2px; top: 369.6px; width: 1046.4px; height: 244.8px;
+               font-size: 20px; color: #FFFFFF; }
+  .sec2-body .li { display: flex; align-items: center; height: 63px; }
+  .sec2-body .dot { flex: none; width: 10px; height: 10px; background: #4DA8FF;
+                    border-radius: 50%; margin: 0 14px 0 4px; }
+  .sec2-body .lb { flex: none; width: 88px; font-weight: 700; color: #4DA8FF; margin-right: 6px; }
+
+  .brand { left: 1075.2px; top: 681.6px; width: 182.4px; text-align: right;
+           font-size: 12px; font-weight: 700; color: #B0C8F5; }
+  .export-btn { position: fixed; right: 24px; bottom: 24px; z-index: 10; padding: 10px 22px;
+                font-size: 15px; font-family: inherit; color: #FFFFFF; background: #1F4E79;
+                border: none; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.35); }
+  .export-btn:hover { background: #2A63A0; }
+
+  .stage { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    html, body { width: 1280px; height: 720px; background: #FFFFFF; overflow: visible; }
+    body { display: block; }
+    .stage { transform: none !important; }
+    .export-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+<!-- ============ 可修改的页面参数 ============ -->
+<script>
+const PARAMS = {
+  // ① 行业趋势 正文
+  trend: '参数内容（行业趋势）',
+  // ② 用户原点：核心用户 / 真实场景 / 核心需求 / 关键顾虑
+  origin: [
+    '参数内容（核心用户）',
+    '参数内容（真实场景）',
+    '参数内容（核心需求）',
+    '参数内容（关键顾虑）'
+  ]
+};
+</script>
+<!-- ================================================================== -->
+
+<div class="stage" id="stage">
+  <img class="bg" src="assets/bg-blue.jpg" alt="">
+
+  <div class="page-title">三品合一建议 · 行业趋势 · 用户原点</div>
+
+  <div class="sec-title sec1-title">① 行业趋势</div>
+  <div class="sec1-body" id="trendText"></div>
+
+  <div class="sec-title sec2-title">② 用户原点</div>
+  <div class="sec2-body">
+    <div class="li"><span class="dot"></span><span class="lb">核心用户</span><span class="val"></span></div>
+    <div class="li"><span class="dot"></span><span class="lb">真实场景</span><span class="val"></span></div>
+    <div class="li"><span class="dot"></span><span class="lb">核心需求</span><span class="val"></span></div>
+    <div class="li"><span class="dot"></span><span class="lb">关键顾虑</span><span class="val"></span></div>
+  </div>
+
+  <div class="brand">LKKDESIGN</div>
+</div>
+<script>
+  // 参数注入
+  document.getElementById('trendText').textContent = PARAMS.trend;
+  document.querySelectorAll('.sec2-body .val').forEach(function (el, i) {
+    el.textContent = PARAMS.origin[i];
+  });
+
+  function fit() {
+    var s = Math.min(innerWidth / 1280, innerHeight / 720);
+    document.getElementById('stage').style.transform = 'scale(' + s + ')';
+  }
+  addEventListener('resize', fit); fit();
+
+  var btn = document.createElement('button');
+  btn.className = 'export-btn';
+  btn.textContent = '导出 PDF';
+  btn.onclick = function () { window.print(); };
+  document.body.appendChild(btn);
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# ---- 大文件（超过 GitHub 100MB 限制或可由脚本重新生成）----
+# 原始/生成的 PPT 模板（158MB，prep 脚本需要时从本地获取）
+*.pptx
+# 中间产物
+ppt-pdf-service/php/assets/blank.pdf
+# 生成的 PDF（测试/输出产物）
+ppt-pdf-service/output/
+ppt-pdf-service/*.pdf
+ppt-pdf-service/php/*.pdf
+ppt-pdf-service/php/output/
+
+# ---- 本机测试环境（与部署无关）----
+ppt-pdf-service/php-runtime/
+ppt-pdf-service/php-lib/
+
+# ---- Python 缓存 ----
+__pycache__/
+*.pyc

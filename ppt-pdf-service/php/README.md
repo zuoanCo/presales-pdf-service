@@ -27,7 +27,10 @@ php/
 ## 部署（Linux）
 
 ```bash
-# 只需要 PHP 7.4+（8.x 推荐），扩展：mbstring（常见默认自带）
+# 只需要 PHP 7.4+（8.x 推荐）
+# 必需的 PHP 扩展：mbstring、curl、gd
+# （TCPDF 内部会引用 curl 常量，没装 php-curl 会直接 Fatal error；
+#   Debian/Ubuntu: apt install php-mbstring php-curl php-gd）
 # 把整个 php/ 目录拷到服务器，然后二选一：
 
 # 1) 挂到现有 nginx/apache + PHP-FPM：把 api.php 放进站点目录即可
